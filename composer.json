@@ -1,0 +1,14 @@
+{
+    "name": "raven/aoc-php",
+    "autoload": {
+        "psr-4": {
+            "Raven\\AocPhp\\": "src/"
+        }
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^6.4"
+    },
+    "require": {
+        "splitbrain/php-cli": "^1.3"
+    }
+}
