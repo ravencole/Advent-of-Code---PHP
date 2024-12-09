@@ -19,7 +19,7 @@ class Challenge extends ChallengeBase
             return str_split(trim($line));
         }, explode("\n", $this->input));
 
-        $this->padGrid(4);
+        $this->padGrid();
     }
 
     public function partOne(): mixed
@@ -191,7 +191,7 @@ class Challenge extends ChallengeBase
         return 0;
     }
 
-    public function padGrid(int $amt): void
+    public function padGrid(): void
     {
         $grid = array_map(function($row) {
             return [
