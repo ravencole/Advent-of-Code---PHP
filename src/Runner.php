@@ -29,6 +29,8 @@ class Runner
             throw new ChallengeClassNotFoundException();
         }
 
+        $start = microtime(true);
+
         $challenge = new $class();
 
         if($this->part !== 2) {
@@ -38,6 +40,10 @@ class Runner
         if($this->part !== 1) {
             $this->results[1] = $challenge->partTwo();
         }
+
+        $end = microtime(true);
+
+        dump('execution time:' . ($end - $start));
 
         return $this;
     }

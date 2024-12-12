@@ -8,7 +8,7 @@ class Challenge extends ChallengeBase
 {
     public function __construct()
     {
-        $this->test_mode = true;
+        $this->test_mode = false;
 
         parent::__construct();
     }
@@ -40,6 +40,8 @@ class Challenge extends ChallengeBase
             }
         }
 
+        $grid_copy = $grid;
+
         foreach($ants as $key => $values) {
             $perms = $this->genUniqueTuples($values);
 
@@ -59,10 +61,41 @@ class Challenge extends ChallengeBase
                 $dx = $distance / sqrt(1 + pow($slope, 2));
                 $dy = $slope * $dx;
 
+                $point_1 = [intval($x1 - $dx), intval($y1 - $dy)];
+                $point_2 = [intval($x2 + $dx), intval($y2 + $dy)];
+
+                if($this->pointIsInBounds($grid, $point_1)) {
+                    $grid_copy[$point_1[0]][$point_1[1]] = '#';
+                }
+
+                if($this->pointIsInBounds($grid, $point_2)) {
+                    $grid_copy[$point_2[0]][$point_2[1]] = '#';
+                }
             }
         }
 
-        return 'Nil';
+        $count = 0;
+
+        for( $i = 0; $i < count( $grid ); $i++ ) {
+            for( $ii = 0; $ii < count( $grid[0] ); $ii++ ) {
+                if( $grid_copy[$i][$ii] === '#' ) {
+                    $count++;
+                }
+            }
+        }
+
+        return $count;
+    }
+
+    private function pointIsInBounds(array $grid, array $point): bool
+    {
+        if($point[0] >= 0 && $point[0] < count($grid)) {
+            if($point[1] >= 0 && $point[1] < count($grid[0])) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function partTwo(): mixed
